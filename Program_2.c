@@ -1,66 +1,28 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct packet
-{
-    int time;
-    int size;
-}p[50];
-
-int main()
-{
-    int i,n,m,k=0;
-    /*clrscr();*/
-    int bsize,bfilled,outrate;
-    printf("Enter the number of packets: ");
-    scanf("%d",&n);
-    printf("Enter packets in the order of they are arrival time\n");
-    for(i=0;i<n;i++)
-    {
-        printf("Enter the time and size: ");
-        scanf("%d%d",&p[i].time,&p[i].size);
+void main()  {
+    int incoming, outgoing, buck_size,n;
+    int remain, storage = 0;
+    printf("Enter the bucket size, outgoing rate and number of inputs/n");
+    scanf("%d %d %d", &buck_size, &outgoing, &n);
+    
+    while(n != 0){
+        printf("Enter incoming packet size\n");
+        scanf("%d", &incoming);
+        printf("Incoming packet size %d\n", incoming);
+        remain = buck_size - storage;
+        if(incoming <= remain){
+            store += incoming;
+            printf("bucket buffer size %d out of %d\n", storage, buck_size);
+        }
+        else {
+            printf("dropped %d packets", incoming - remain);
+            printf("Bucker buffer size %d out of %d", remain, buck_size);
+            storage = buck_size;
+        }
+        storage = storage - outgoing;
+        printf("After outgoing %d packet left out of %d in buffer\n", storage, buck_size);
+        n--;
     }
-    printf("Enter the bucket size: ");
-    scanf("%d",&bsize);
-    printf("Enter the output rate: ");
-    scanf("%d",&outrate);
-    m=p[n-1].time;
-    i=1;
-    k=0;
-    bfilled=0;
- while(i<=m || bfilled!=0)
-    {
-
-        printf("\n\nAt time %d",i);
-        if(p[k].time==i )
-        {
-            if(bsize>=bfilled + p[k].size)
-            {
-                bfilled=bfilled + p[k].size;
-                printf("\n%d byte packet is inserted",p[k].size);
-                k=k+1;
-            }
-            else
-            {
-                printf("\n%d byte packet is discarded",p[k].size);
-                k=k+1;
-            }
-        }
-        if(bfilled==0)
-        {
-            printf("\nNo packets to transmitte");
-        }
-        else if(bfilled>=outrate)
-        {
-            bfilled=bfilled-outrate;
-            printf("\n%d bytes transfered",outrate);
-        }
-        else
-        {
-            printf("\n%d bytes transfered",bfilled);
-            bfilled=0;
-        }
-        printf("\nPackets in the bucket %d byte",bfilled);
-        i++;
-    }
-    return 0;
+}
