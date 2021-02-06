@@ -3,7 +3,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int main()
+void main()
 {
     int soc, n;
     char buffer[1024], fname[50];
@@ -32,6 +32,4 @@ int main()
     /*  keep printing any data received from the server */
     while ((n = recv(soc, buffer, sizeof(buffer), 0)) > 0)
         printf("%s", buffer);
-
-    return 0;
 }
