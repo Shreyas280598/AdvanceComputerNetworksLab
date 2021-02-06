@@ -3,7 +3,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int main()
+void main()
 {
     int welcome, new_soc, fd, n;
     char buffer[1024], fname[50];
@@ -36,6 +36,4 @@ int main()
             send(new_soc, buffer, n, 0);
     printf("\nRequest sent\n");
     close(fd);
-
-    return 0;
 }
